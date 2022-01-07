@@ -1,21 +1,20 @@
 import React from 'react';
 import './App.css';
-import Form from './Form.js';
+import BlockTextInput from './Input/BlockTextInput';
+import TimerSelectInput from './Input/TimerSelectInput';
 
 export default class App extends React.Component {
   state = {
-    formValues: {
-      block: '',
-      timerName: ''
-    },
-    timers: [{block:'1', name: 'South_Bubbler'}]
+    timers: []
   };
 
-  handleSubmit = (event) => {
+  handleChange = (target, value) => {
+    this.setState({ [target]: value});
+  };
+
+  handleSubmit = () => {
     console.log(`A form was submitted`);
-    console.log(event.target);
     console.log(this.state);
-    event.preventDefault();
   }
 
   render() {
@@ -23,8 +22,15 @@ export default class App extends React.Component {
     return (
       <div className="App">
         <header className="App-header">
-          <Form onSubmit={this.handleSubmit} />
-        </header><br />
+          <p>PSO2 Vet Timers</p>
+          <BlockTextInput handleChange={this.handleChange} />
+          <TimerSelectInput handleChange={this.handleChange} />
+          <center>
+            <button onClick={this.handleSubmit}>Start</button>
+          </center>
+          <br />
+        </header>
+        <br />
         <center>
           <table>
             <tbody>
