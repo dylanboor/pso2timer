@@ -5,24 +5,24 @@ export default class Form extends React.Component {
     super(props);
     this.state = {
       block: '',
-      timer: ''
+      timerName: ''
     };
   }
 
-  handleSubmit = (event) => {
-    console.log(`A form was submitted`);
-    console.log(this.state);
-    event.preventDefault();
-  }
+  // handleSubmit = (event) => {
+  //   console.log(`A form was submitted`);
+  //   console.log(this.state);
+  //   event.preventDefault();
+  // }
 
   render() {
-    let { block, timer } = this.state;
+    let { block, timerName } = this.state;
     return (
       <div>
         <p>
           PSO2 Vet Timers
         </p>
-        <form onSubmit={this.handleSubmit} align="left" name="input-form">
+        <form id="form" onSubmit={this.props.onSubmit} align="left" name="input-form">
           <label>
             Block:&nbsp;
             <input type="text" name="block-input" onChange={(e) => this.setState({block: e.target.value})} value={block}/>
@@ -30,7 +30,7 @@ export default class Form extends React.Component {
           <br />
           <label>
             Fight:&nbsp;
-            <select name="timer-select" onChange={(e) => this.setState({timer: e.target.value || null})} value={timer}>
+            <select name="timer-select" onChange={(e) => this.setState({timerName: e.target.value || null})} value={timerName}>
               <option value=""></option>
               <option value="South_Bubbler">S: Bubbler</option>
               <option value="South_Dustyl">S: Dustyl</option>
@@ -46,7 +46,7 @@ export default class Form extends React.Component {
             </select>
           </label>
           <br /><br />
-          <center><input type="submit" value="Submit"/></center>
+          <center><input form="form" type="submit" value="Submit"/></center><br />
         </form>
       </div> 
     )
