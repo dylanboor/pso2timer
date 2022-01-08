@@ -5,11 +5,16 @@ import BlockTextInput from './Input/BlockTextInput';
 import TimerSelectInput from './Input/TimerSelectInput';
 
 export default class App extends React.Component {
-  state = {
-    block: '',
-    timerName: '',
-    timers: []
-  };
+  constructor(props) {
+    super(props);
+    this.state = {
+      block: '',
+      timerName: '',
+      timers: []
+    };
+    this.timer = 0;
+  }
+
 
   handleChange = (target, value) => {
     this.setState({ [target]: value});
@@ -30,9 +35,13 @@ export default class App extends React.Component {
     // } else {
     //   console.log(`adding new timer`);
       console.log('Adding new kill timer until dead');
-      newTimers.push({ timerName: timerName, block: block, time: -300 }); 
-      this.setState({timers: newTimers})
+      newTimers.push({ timerName: timerName, block: block, time: 0, dead: false }); 
+      this.setState({timers: newTimers});
     // }
+
+    if (this.timer === 0) {
+      this.startTimer();
+    }
   }
 
   handleKilled = () => {
@@ -40,24 +49,45 @@ export default class App extends React.Component {
     let newTimers = [...timers];
 
     let result = findTimer({block: block, timerName: timerName}, newTimers);
-    console.log(result)
-    if (result) {
+    console.log(result);
+    if (result && !result.dead) {
       console.log(`Killed- Setting respawn timer to 15 minutes for ${timerName} on Block ${block}`);
       newTimers[newTimers.indexOf(result)].time = 900;
+      newTimers[newTimers.indexOf(result)].dead = true;
     }
     
-    this.setState({timers: newTimers})
+    this.setState({timers: newTimers});
   }
 
   handleDelete = (index) => {
     let { timers } = this.state;
     let newTimers = [...timers];
     newTimers.splice(index, 1);
-    this.setState({timers: newTimers})
+    this.setState({timers: newTimers});
 
     console.log(this.state);
   }
 
+  startTimer = () => {
+    if (this.timer === 0) {
+      this.timer = setInterval(this.countDown, 1000);
+    }
+  }
+
+  countDown = () => {
+    let { timers } = this.state;
+    let newTimers = [...timers];
+    newTimers.forEach(timer => {
+      if (timer.dead) {
+        timer.time -= 1;
+      } else {
+        timer.time += 1;
+      }
+    });
+    this.setState({timers: newTimers});
+  }
+
+  // TODO if click a table row, select that block+dropdown state
   render() {
     let { timers } = this.state;
     return (
