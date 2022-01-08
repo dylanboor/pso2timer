@@ -17,7 +17,7 @@ export const findTimer = (obj, array) => {
 /**
  * 
  * @param {*} seconds 
- * @returns string in MM:SS format, accounting for negative seconds
+ * @returns string in MM:SS format, accounting for negative seconds, with lowest value of -5min
  */
 export const formatTimer = (seconds) => {
   let date = new Date(null);
@@ -25,6 +25,10 @@ export const formatTimer = (seconds) => {
     date.setSeconds(seconds);
     return date.toISOString().substr(14,5);
   } else {
+    if (seconds < -300) {
+      seconds = -300;
+    }
+
     date.setSeconds(-1 * seconds);
     return "-"+date.toISOString().substr(14,5);
   }
