@@ -51,8 +51,8 @@ export default class App extends React.Component {
     let result = findTimer({block: block, timerName: timerName}, newTimers);
     console.log(result);
     if (result && !result.dead) {
-      console.log(`Killed- Setting respawn timer to 15 minutes for ${timerName} on Block ${block}`);
-      newTimers[newTimers.indexOf(result)].time = 900;
+      console.log(`Killed- Setting respawn timer to 10 minutes for ${timerName} on Block ${block}`);
+      newTimers[newTimers.indexOf(result)].time = 600;
       newTimers[newTimers.indexOf(result)].dead = true;
     }
     
