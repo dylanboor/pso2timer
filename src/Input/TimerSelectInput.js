@@ -1,4 +1,5 @@
 import React from 'react';
+import { selectOptions } from '../helpers/selectOptions';
 
 export default function TimerSelectInput(props) {
     return (
@@ -7,17 +8,9 @@ export default function TimerSelectInput(props) {
           Fight:&nbsp;
           <select name="timer-select" onChange={(e) => props.handleChange('timerName', e.target.value || null)}>
             <option value=""></option>
-            <option value="South_Bubbler">S: Bubbler</option>
-            <option value="South_Dustyl">S: Dustyl</option>
-            <option value="South_Svaulon">S: Svaulon</option>
-            <option value="North_Bubbler">N: Bubbler</option>
-            <option value="North_Eldi">N: Eldi</option>
-            <option value="North_Lizentos">N: Lizentos</option>
-            <option value="West_Fortos">W: Fortos</option>
-            <option value="West_Kelkundo">W: Kelkundo</option>
-            <option value="Central_Nogleth">C: Nogleth</option>
-            <option value="Central_Fortos">C: Fortos</option>
-            <option value="Central_Svia">C: Svia</option>
+            {selectOptions.map(entry => {
+              return <option value={entry.value}>{entry.name}</option>
+            })}
           </select>
         </label>
         <br /><br />
