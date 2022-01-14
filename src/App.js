@@ -1,6 +1,6 @@
 import React from 'react';
 import './App.css';
-import { findTimer, formatTimer } from './helpers/helpers';
+import { findTimer, formatTimerDisplay } from './helpers/helpers';
 import BlockTextInput from './Input/BlockTextInput';
 import TimerSelectInput from './Input/TimerSelectInput';
 
@@ -118,7 +118,7 @@ export default class App extends React.Component {
                   <tr key={index}>
                     <td>{`${timer.timerName.split("_")[0][0].toLowerCase()}${timer.block}`}</td>
                     <td>{timer.timerName.split("_")[1]}</td>
-                    <td>{formatTimer(timer.time)}</td>
+                    <td>{formatTimerDisplay(timer.time, timer.dead)}</td>
                     {/* <td>C</td> */}
                     <td>
                       <button id={`Delete_Button-${index}`} onClick={() => this.handleDelete(index)}>

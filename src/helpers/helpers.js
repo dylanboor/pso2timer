@@ -14,21 +14,35 @@ export const findTimer = (obj, array) => {
   })
 }
 
+
+export const formatTimerDisplay = (seconds, isDead) => {
+  if (isDead) {
+    if (seconds < 0) {
+      return <div className="greenText">{formatTimerString(seconds)}</div>;
+    } else {
+      return <div className="redText">{formatTimerString(seconds)}</div>;
+    }
+  }
+  if (!isDead) {
+    return formatTimerString(seconds);
+  }
+}
+
 /**
  * 
  * @param {*} seconds 
- * @returns string in MM:SS format, accounting for negative seconds, with lowest value of -5min
+ * @returns string in MM:SS format, accounting for negative seconds
  */
-export const formatTimer = (seconds) => {
+export const formatTimerString = (seconds) => {
   let date = new Date(null);
   if (seconds > 0) {
     date.setSeconds(seconds);
     return date.toISOString().substr(14,5);
   } else {
-    if (seconds < -300) {
-      seconds = -300;
-    }
-
+    // if (seconds < -300) {
+    //   seconds = -300;
+    // }
+    
     date.setSeconds(-1 * seconds);
     return "-"+date.toISOString().substr(14,5);
   }

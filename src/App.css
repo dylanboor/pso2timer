@@ -25,7 +25,6 @@ table, th, td {
   padding: 10px
 }
 
-
 input[type="text"] {
   font-size: calc(10px + 3vmin);
   width: 165px;
@@ -44,6 +43,14 @@ button[id="Start_Button"] {
 
 button[id="Dead_Button"] {
   color: red;
+}
+
+.redText {
+  color: red
+}
+
+.greenText {
+  color: green
 }
 
 
