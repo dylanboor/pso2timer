@@ -3,6 +3,7 @@ import './App.css';
 import { findTimer, formatTimerDisplay } from './helpers/helpers';
 import BlockTextInput from './Input/BlockTextInput';
 import TimerSelectInput from './Input/TimerSelectInput';
+import constants from './constants.json';
 
 export default class App extends React.Component {
   constructor(props) {
@@ -93,12 +94,12 @@ export default class App extends React.Component {
     return (
       <div className="App">
         <header className="App-header">
-          <p>PSO2 Vet Timers</p>
+          <p>{constants.TITLE_TEXT}</p>
           <BlockTextInput handleChange={this.handleChange} />
           <TimerSelectInput handleChange={this.handleChange} />
           <center>
-            <button id="Start_Button" onClick={() => this.handleStart()}>Start</button>
-            <button id="Dead_Button" onClick={() => this.handleKilled()}>Dead</button>
+            <button id="Start_Button" onClick={() => this.handleStart()}>{constants.START_BUTTON_TEXT}</button>
+            <button id="Dead_Button" onClick={() => this.handleKilled()}>{constants.DEAD_BUTTON_TEXT}</button>
           </center>
           <br />
         </header>
