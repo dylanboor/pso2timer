@@ -17,7 +17,7 @@ export default class App extends React.Component {
 
 
   handleChange = (target, value) => {
-    this.setState({ [target]: value});
+    this.setState({ [target]: value });
   };
 
   handleStart = () => {
@@ -34,9 +34,9 @@ export default class App extends React.Component {
     //   this.setState({timers: newTimers})
     // } else {
     //   console.log(`adding new timer`);
-      console.log('Adding new kill timer until dead');
-      newTimers.push({ timerName: timerName, block: block, time: 0, dead: false }); 
-      this.setState({timers: newTimers});
+    console.log('Adding new kill timer until dead');
+    newTimers.push({ timerName: timerName, block: block, time: 0, dead: false });
+    this.setState({ timers: newTimers });
     // }
 
     if (this.timer === 0) {
@@ -48,22 +48,22 @@ export default class App extends React.Component {
     let { block, timerName, timers } = this.state;
     let newTimers = [...timers];
 
-    let result = findTimer({block: block, timerName: timerName}, newTimers);
+    let result = findTimer({ block: block, timerName: timerName }, newTimers);
     console.log(result);
     if (result && !result.dead) {
       console.log(`Killed- Setting respawn timer to 10 minutes for ${timerName} on Block ${block}`);
       newTimers[newTimers.indexOf(result)].time = 600;
       newTimers[newTimers.indexOf(result)].dead = true;
     }
-    
-    this.setState({timers: newTimers});
+
+    this.setState({ timers: newTimers });
   }
 
   handleDelete = (index) => {
     let { timers } = this.state;
     let newTimers = [...timers];
     newTimers.splice(index, 1);
-    this.setState({timers: newTimers});
+    this.setState({ timers: newTimers });
 
     console.log(this.state);
   }
@@ -84,7 +84,7 @@ export default class App extends React.Component {
         timer.time += 1;
       }
     });
-    this.setState({timers: newTimers});
+    this.setState({ timers: newTimers });
   }
 
   // TODO if click a table row, select that block+dropdown state
@@ -113,7 +113,7 @@ export default class App extends React.Component {
                 {/* <th>Copy</th> */}
                 <th>Delete</th>
               </tr>
-              {timers && timers.length > 0 && 
+              {timers && timers.length > 0 &&
                 timers.map((timer, index) => (
                   <tr key={index}>
                     <td>{`${timer.timerName.split("_")[0][0].toLowerCase()}${timer.block}`}</td>
@@ -126,7 +126,7 @@ export default class App extends React.Component {
                       </button>
                     </td>
                   </tr>
-              ))}
+                ))}
             </tbody>
           </table>
         </center>
