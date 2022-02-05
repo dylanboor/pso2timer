@@ -95,8 +95,8 @@ export default class App extends React.Component {
       <div className="App">
         <header className="App-header">
           <p>{constants.TITLE_TEXT}</p>
-          <BlockTextInput handleChange={this.handleChange} />
-          <TimerSelectInput handleChange={this.handleChange} />
+          <BlockTextInput id="block-text-input" handleChange={this.handleChange} />
+          <TimerSelectInput id="timer-select-input" handleChange={this.handleChange} />
           <center>
             <button id="Start_Button" onClick={() => this.handleStart()}>{constants.START_BUTTON_TEXT}</button>
             <button id="Dead_Button" onClick={() => this.handleKilled()}>{constants.DEAD_BUTTON_TEXT}</button>
