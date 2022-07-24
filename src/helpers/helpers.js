@@ -1,7 +1,7 @@
 /**
- * 
+ *
  * @param {*} obj must contain block and timerName
- * @param {*} array 
+ * @param {*} array
  * @returns the element in the array that matches obj.block & obj.timerName
  */
 export const findTimer = (obj, array) => {
@@ -11,39 +11,43 @@ export const findTimer = (obj, array) => {
     } else {
       return false;
     }
-  })
-}
+  });
+};
 
-
-export const formatTimerDisplay = (seconds, isDead) => {
+export const formatTimerDisplay = (seconds, isDead, clearTime) => {
   if (isDead) {
     if (seconds < 0) {
       return <div className="greenText">{formatTimerString(seconds)}</div>;
     } else {
-      return <div className="redText">{formatTimerString(seconds)}</div>;
+      return (
+        <div className="redText">
+          {formatTimerString(seconds)}{" "}
+          <span> ({formatTimerString(clearTime)})</span>
+        </div>
+      );
     }
   }
   if (!isDead) {
     return formatTimerString(seconds);
   }
-}
+};
 
 /**
- * 
- * @param {*} seconds 
+ *
+ * @param {*} seconds
  * @returns string in MM:SS format, accounting for negative seconds
  */
 export const formatTimerString = (seconds) => {
   let date = new Date(null);
   if (seconds > 0) {
     date.setSeconds(seconds);
-    return date.toISOString().substr(14,5);
+    return date.toISOString().substr(14, 5);
   } else {
     // if (seconds < -300) {
     //   seconds = -300;
     // }
-    
+
     date.setSeconds(-1 * seconds);
-    return "-"+date.toISOString().substr(14,5);
+    return "-" + date.toISOString().substr(14, 5);
   }
-}
+};
