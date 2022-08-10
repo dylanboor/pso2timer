@@ -2,7 +2,7 @@ import React from "react";
 import "./App.css";
 import { findTimer, formatTimerDisplay } from "./helpers/helpers";
 import BlockTextInput from "./Input/BlockTextInput";
-import TimerSelectInput from "./Input/TimerSelectInput";
+import TimerButtons from "./Input/TimerButtons";
 import constants from "./constants.json";
 
 export default class App extends React.Component {
@@ -10,7 +10,6 @@ export default class App extends React.Component {
     super(props);
     this.state = {
       block: "",
-      timerName: "",
       timers: [],
     };
     this.timer = 0;
@@ -20,10 +19,10 @@ export default class App extends React.Component {
     this.setState({ [target]: value });
   };
 
-  handleStart = () => {
-    let { block, timerName, timers } = this.state;
+  handleNew = (timerName) => {
+    let { block, timers } = this.state;
     let newTimers = [...timers];
-
+    console.log(timerName);
     // TODO: ? If same timer already exists, what do?
     // if (findTimer({block: block, timerName: timerName}, newTimers)) {
     //   console.log('found already');
@@ -34,6 +33,10 @@ export default class App extends React.Component {
     //   this.setState({timers: newTimers})
     // } else {
     //   console.log(`adding new timer`);
+    // TODO add actual form validation by treating all the timer buttons as submits
+    if (!block) {
+      return;
+    }
     console.log("Adding new kill timer until dead");
     newTimers.push({
       timerName: timerName,
@@ -49,16 +52,13 @@ export default class App extends React.Component {
     }
   };
 
-  handleKilled = () => {
-    let { block, timerName, timers } = this.state;
+  handleKilled = (timer) => {
+    let { timers } = this.state;
     let newTimers = [...timers];
 
-    let result = findTimer({ block: block, timerName: timerName }, newTimers);
+    let result = findTimer(timer, newTimers);
     console.log(result);
     if (result && !result.dead) {
-      console.log(
-        `Killed- Setting respawn timer to 5 minutes for ${timerName} on Block ${block}`
-      );
       newTimers[newTimers.indexOf(result)].clearTime = result.time;
       newTimers[newTimers.indexOf(result)].time = 300;
       newTimers[newTimers.indexOf(result)].dead = true;
@@ -74,6 +74,21 @@ export default class App extends React.Component {
     this.setState({ timers: newTimers });
 
     console.log(this.state);
+  };
+
+  handleRestart = (timer) => {
+    let { timers } = this.state;
+    let newTimers = [...timers];
+
+    let result = findTimer(timer, newTimers);
+
+    if (result && result.dead) {
+      newTimers[newTimers.indexOf(result)].clearTime = result.clearTime;
+      newTimers[newTimers.indexOf(result)].time = 0;
+      newTimers[newTimers.indexOf(result)].dead = false;
+    }
+
+    this.setState({ timers: newTimers });
   };
 
   startTimer = () => {
@@ -95,7 +110,7 @@ export default class App extends React.Component {
     this.setState({ timers: newTimers });
   };
 
-  // TODO if click a table row, select that block+dropdown state
+  // TODO: Install tailwind, typescript?
   render() {
     let { timers } = this.state;
     return (
@@ -106,18 +121,7 @@ export default class App extends React.Component {
             id="block-text-input"
             handleChange={this.handleChange}
           />
-          <TimerSelectInput
-            id="timer-select-input"
-            handleChange={this.handleChange}
-          />
-          <center>
-            <button id="Start_Button" onClick={() => this.handleStart()}>
-              {constants.START_BUTTON_TEXT}
-            </button>
-            <button id="Dead_Button" onClick={() => this.handleKilled()}>
-              {constants.DEAD_BUTTON_TEXT}
-            </button>
-          </center>
+          <TimerButtons id="timer-select-input" handleClick={this.handleNew} />
           <br />
         </header>
         <br />
@@ -128,8 +132,7 @@ export default class App extends React.Component {
                 <th>Region/Block</th>
                 <th>Timer Name</th>
                 <th>Time</th>
-                {/* <th>Copy</th> */}
-                <th>Delete</th>
+                <th>Actions</th>
               </tr>
               {timers &&
                 timers.length > 0 &&
@@ -147,13 +150,27 @@ export default class App extends React.Component {
                         timer.clearTime
                       )}
                     </td>
-                    {/* <td>C</td> */}
                     <td>
                       <button
+                        className="actionButton"
+                        id={`Killed_Button-${index}`}
+                        onClick={() => this.handleKilled(timer, index)}
+                      >
+                        💀
+                      </button>
+                      <button
+                        className="actionButton"
+                        id={`Restart_Button-${index}`}
+                        onClick={() => this.handleRestart(timer, index)}
+                      >
+                        🔄
+                      </button>
+                      <button
+                        className="actionButton"
                         id={`Delete_Button-${index}`}
                         onClick={() => this.handleDelete(index)}
                       >
-                        x
+                        &nbsp;&#128465;&nbsp;
                       </button>
                     </td>
                   </tr>

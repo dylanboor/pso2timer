@@ -17,24 +17,37 @@
   color: #61dafb;
 }
 
-table, th, td {
+table,
+th,
+td {
   font-size: calc(10px + 2vmin);
   color: white;
   align-items: center;
   border: 1px solid white;
-  padding: 10px
+  padding: 10px;
 }
 
 input[type="text"] {
   font-size: calc(10px + 3vmin);
   width: 165px;
-  text-align: center
+  text-align: center;
 }
 
 button {
+  background-color: #282c34;
   font-size: calc(10px + 3vmin);
   text-align: center;
   margin: 5px;
+  color: white;
+}
+
+.actionButton {
+  background-color: #282c34;
+  font-size: calc(10px + 1vmin);
+  /* text-align: center; */
+  /* margin: 5px; */
+  color: white;
+  height: 55px;
 }
 
 button[id="Start_Button"] {
@@ -46,13 +59,12 @@ button[id="Dead_Button"] {
 }
 
 .redText {
-  color: red
+  color: red;
 }
 
 .greenText {
-  color: green
+  color: green;
 }
-
 
 select {
   font-size: calc(10px + 2vmin);

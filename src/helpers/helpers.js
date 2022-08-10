@@ -28,7 +28,14 @@ export const formatTimerDisplay = (seconds, isDead, clearTime) => {
     }
   }
   if (!isDead) {
-    return formatTimerString(seconds);
+    return (
+      <div>
+        {formatTimerString(seconds)}{" "}
+        {clearTime && (
+          <span className="redText">({formatTimerString(clearTime)})</span>
+        )}
+      </div>
+    );
   }
 };
 
