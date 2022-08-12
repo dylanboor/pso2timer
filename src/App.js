@@ -19,33 +19,21 @@ export default class App extends React.Component {
     this.setState({ [target]: value });
   };
 
-  handleNew = (timerName) => {
+  handleNew = (timer) => {
     let { block, timers } = this.state;
     let newTimers = [...timers];
-    console.log(timerName);
-    // TODO: ? If same timer already exists, what do?
-    // if (findTimer({block: block, timerName: timerName}, newTimers)) {
-    //   console.log('found already');
-    //   let index = findTimerIndex({block: block, timerName: timerName}, newTimers);
-    //   console.log(index)
-    //   index && newTimers.splice(index);
-    //   newTimers.push({ timerName: timerName, block: block, time: 0 });
-    //   this.setState({timers: newTimers})
-    // } else {
-    //   console.log(`adding new timer`);
-    // TODO add actual form validation by treating all the timer buttons as submits
     if (!block) {
       return;
     }
     console.log("Adding new kill timer until dead");
     newTimers.push({
-      timerName: timerName,
+      timerName: timer.value,
       block: block,
       time: 0,
       dead: false,
+      respawn: timer.respawn,
     });
     this.setState({ timers: newTimers });
-    // }
 
     if (this.timer === 0) {
       this.startTimer();
@@ -60,7 +48,7 @@ export default class App extends React.Component {
     console.log(result);
     if (result && !result.dead) {
       newTimers[newTimers.indexOf(result)].clearTime = result.time;
-      newTimers[newTimers.indexOf(result)].time = 300;
+      newTimers[newTimers.indexOf(result)].time = timer.respawn; // 300?
       newTimers[newTimers.indexOf(result)].dead = true;
     }
 
@@ -117,12 +105,12 @@ export default class App extends React.Component {
       <div className="App">
         <header className="App-header">
           <p>{constants.TITLE_TEXT}</p>
+          <TimerButtons id="timer-select-input" handleClick={this.handleNew} />
+          <br />
           <BlockTextInput
             id="block-text-input"
             handleChange={this.handleChange}
           />
-          <TimerButtons id="timer-select-input" handleClick={this.handleNew} />
-          <br />
         </header>
         <br />
         <center>

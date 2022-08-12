@@ -11,7 +11,7 @@ export default function TimerButtons({ handleClick, ...props }) {
           <button
             name={`timer-${entry.value}`}
             key={entry.value}
-            onClick={(e) => handleClick(entry.value)}
+            onClick={(e) => handleClick(entry)}
             {...props}
           >
             {entry.name}
