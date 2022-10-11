@@ -27,7 +27,7 @@ td {
   padding: 10px;
 }
 
-input[type="text"] {
+input[type="number"] {
   font-size: calc(10px + 3vmin);
   width: 165px;
   text-align: center;
