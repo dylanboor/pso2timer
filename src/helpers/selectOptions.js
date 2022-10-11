@@ -12,7 +12,7 @@ export const selectOptions = [
   { name: "SR: Svaulon", value: "SR_Svaulon", respawn: 300 },
   { name: "WR: Fortos", value: "WR_Fortos", respawn: 300 },
   { name: "WR: Kelkundo", value: "WR_Kelkundo", respawn: 300 },
-  { name: "RG: Ancient", value: "RG_Ancient", respawn: 600 },
+  { name: "RG: Ancient", value: "RG_Ancient", respawn: 900 },
   { name: "WK: Frostyl", value: "WK_Frostyl", respawn: 300 },
   { name: "WK: Bird", value: "WK_Bird", respawn: 300 },
   { name: "WK: Mammoth", value: "WK_Mammoth", respawn: 300 },
