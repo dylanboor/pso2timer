@@ -20,4 +20,5 @@ export const selectOptions = [
   { name: "SK: Pangolan", value: "SK_Pangolan", respawn: 300 },
   { name: "CK: Banser", value: "CK_Banser", respawn: 300 },
   { name: "CK: Relyn", value: "CK_Relyn", respawn: 300 },
+  { name: "NK: Bird", value: "NK_Bird", respawn: 300 },
 ];
